@@ -6,9 +6,9 @@ class Burger extends Component {
     state = {
         ingridients: {
             meat: 0,
-            tomato: 0,
-            cheese: 0,
-            salads: 0
+            salad: 0,
+            bacon: 0,
+            cheese: 0
         }
     }
 
@@ -31,14 +31,16 @@ class Burger extends Component {
             return [...Array(this.state.ingridients[ingridient])].map((_, i) => {
                 return <Ingridients ingridient={ingridient} key={ingridient + i} />
             })
-        })
+        }).reduce((acc, val) => acc.concat(val), [])
 
 
 
         return (
-            <div>
+            <div className="container">
                 <Ingridients ingridient="topBun" />
-                {ingridient}
+                {ingridient.length === 0
+                    ? <h4>Start adding ingridients</h4>
+                    : ingridient}
                 <Ingridients ingridient="lowerBun" />
 
                 <BurgerBuilder

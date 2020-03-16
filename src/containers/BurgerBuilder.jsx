@@ -4,9 +4,9 @@ import React from 'react';
 const BurgerBuilder = (props) => {
     const ingridients = [
         { key: "meat", label: "Meat" },
-        { key: "tomato", label: "Tomato" },
+        { key: "salad", label: "Salad" },
         { key: "cheese", label: "Cheese" },
-        { key: "salads", label: "Salads" },
+        { key: "bacon", label: "Bacon" },
     ]
 
     const ingidientsClone = { ...props.ingridients }
@@ -15,25 +15,29 @@ const BurgerBuilder = (props) => {
         ingidientsClone[i] = ingidientsClone <= 0
     }
 
-
-
     return (
-        <div>
+        <div className="row mt-4">
             {ingridients.map(ingridient => {
                 return (
-                    <div key={ingridient.key}>
-                        <p>{ingridient.label}</p>
-                        <button
-                            onClick={() => props.onAddIngridient(ingridient.key)}
-                        >
-                            Add
+                    <div className="col-3" key={ingridient.key}>
+                        <div className="card">
+                            <div className="card-body">
+                                <h5 className="card-title">{ingridient.label}</h5>
+                                <button
+                                    className="btn btn-outline-success mr-3"
+                                    onClick={() => props.onAddIngridient(ingridient.key)}
+                                >
+                                    Add
                         </button>
-                        <button
-                            disabled={!props.ingridients[ingridient.key]}
-                            onClick={() => props.onRemoveIngridient(ingridient.key)}
-                        >
-                            Remove
+                                <button
+                                    className="btn btn-outline-danger"
+                                    disabled={!props.ingridients[ingridient.key]}
+                                    onClick={() => props.onRemoveIngridient(ingridient.key)}
+                                >
+                                    Remove
                         </button>
+                            </div>
+                        </div>
                     </div>
                 )
             })}
