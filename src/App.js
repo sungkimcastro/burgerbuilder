@@ -1,9 +1,10 @@
 import React from "react";
+import Burger from "./components/Burger";
 
 function App() {
   return (
     <div>
-      <h1>ahua</h1>
+      <Burger />
     </div>
   );
 }
