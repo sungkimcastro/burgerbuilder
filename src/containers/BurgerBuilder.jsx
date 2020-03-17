@@ -16,7 +16,7 @@ const BurgerBuilder = (props) => {
     }
 
     return (
-        <div className="row mt-4">
+        <div className="row">
             {ingridients.map(ingridient => {
                 return (
                     <div className="col-3" key={ingridient.key}>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Ingridients from '../containers/Ingridients';
 import BurgerBuilder from './../containers/BurgerBuilder';
+import styles from "./assets/Burger.module.css"
 
 class Burger extends Component {
     state = {
@@ -36,19 +37,21 @@ class Burger extends Component {
 
 
         return (
-            <div className="container">
-                <Ingridients ingridient="topBun" />
-                {ingridient.length === 0
-                    ? <h4>Start adding ingridients</h4>
-                    : ingridient}
-                <Ingridients ingridient="lowerBun" />
-
-                <BurgerBuilder
-                    ingridients={this.state.ingridients}
-                    onAddIngridient={this.onAddIngridient}
-                    onRemoveIngridient={this.onRemoveIngridient}
-                />
-
+            <div className="row">
+                <div className="container">
+                    <div className={styles.Burger}>
+                        <Ingridients ingridient="topBun" />
+                        {ingridient.length === 0
+                            ? <h4>Start adding ingridients</h4>
+                            : ingridient}
+                        <Ingridients ingridient="lowerBun" />
+                    </div>
+                    <BurgerBuilder
+                        ingridients={this.state.ingridients}
+                        onAddIngridient={this.onAddIngridient}
+                        onRemoveIngridient={this.onRemoveIngridient}
+                    />
+                </div>
             </div>
         );
     }

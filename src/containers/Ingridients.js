@@ -12,19 +12,19 @@ const Ingridients = props => {
       );
 
     case "meat":
-      return <div className={styles.Meat}>Meat</div>;
+      return <div className={styles.Meat}></div>;
 
     case "salad":
-      return <div className={styles.Salad}>Salad</div>;
+      return <div className={styles.Salad}></div>;
 
     case "cheese":
-      return <div className={styles.Cheese}>Cheese</div>;
+      return <div className={styles.Cheese}></div>;
 
     case "bacon":
-      return <div className={styles.Bacon}>Bacon</div>;
+      return <div className={styles.Bacon}></div>;
 
     case "lowerBun":
-      return <div className={styles.BreadBottom}>Lower bun</div>;
+      return <div className={styles.BreadBottom}></div>;
 
     default:
       return null;
