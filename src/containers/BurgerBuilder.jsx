@@ -25,11 +25,11 @@ const BurgerBuilder = (props) => {
     }
 
     return (
-        <div className="row">
+        <div className="row mt-5">
             {ingridients.map(ingridient => {
                 return (
-                    <div className="col-3" key={ingridient.key}>
-                        <div className="card">
+                    <div className="col-lg-6 my-2" key={ingridient.key} >
+                        <div className="card widget-flat">
                             <div className="card-body">
                                 <div className="float-right">
                                     <span className="badge badge-primary">
@@ -45,14 +45,14 @@ const BurgerBuilder = (props) => {
                                     onClick={() => props.onAddIngridient(ingridient.key)}
                                 >
                                     Add
-                        </button>
+                                     </button>
                                 <button
                                     className="btn btn-outline-danger"
                                     disabled={!props.ingridients[ingridient.key]}
                                     onClick={() => props.onRemoveIngridient(ingridient.key)}
                                 >
                                     Remove
-                        </button>
+                                    </button>
                             </div>
                         </div>
                     </div>
