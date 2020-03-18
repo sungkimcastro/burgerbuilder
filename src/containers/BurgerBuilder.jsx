@@ -4,19 +4,11 @@ import React from 'react';
 const BurgerBuilder = (props) => {
 
     const ingridients = [
-        { key: "meat", label: "Meat" },
-        { key: "salad", label: "Salad" },
-        { key: "cheese", label: "Cheese" },
-        { key: "bacon", label: "Bacon" },
+        { key: "meat", label: "Meat", cost: 1.5 },
+        { key: "salad", label: "Salad", cost: 0.7 },
+        { key: "cheese", label: "Cheese", cost: 0.5 },
+        { key: "bacon", label: "Bacon", cost: 1.1 },
     ]
-
-    const burgerPrice = {
-        meat: 1.5,
-        salad: 0.7,
-        bacon: 1.1,
-        cheese: 0.5,
-    }
-
 
     const ingidientsClone = { ...props.ingridients }
 
@@ -37,7 +29,7 @@ const BurgerBuilder = (props) => {
                                     </span>
                                 </div>
                                 <h5 className="card-title">{ingridient.label}</h5>
-                                <h6 className="card-subtitle text-muted">Cost: {burgerPrice[ingridient.key]}</h6>
+                                <h6 className="card-subtitle text-muted">Cost: ${ingridient.cost}</h6>
                             </div>
                             <div className="card-body">
                                 <button
