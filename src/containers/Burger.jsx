@@ -7,35 +7,43 @@ import styles from "./assets/Burger.module.css"
 
 
 
-const Burger = ({ ingridients, cost }) => {
+const Burger = ({ ingridients, cost, loaded }) => {
+    let withIngridients = null
 
-    const withIngridients = Object.values(ingridients).map(ingridient => ingridient > 0).filter(i => i !== false)
+    if (loaded) {
+        withIngridients = Object.values(ingridients).map(ingridient => ingridient > 0).filter(i => i !== false)
+    }
 
     return (
-        <div className="col-lg-6">
-            <div className={styles.Burger}>
-                <Ingridients ingridient="topBun" />
-                {withIngridients.length < 1 ? <h5>Add some ingridients</h5> : <Ingridient />}
-                <Ingridients ingridient="lowerBun" />
-            </div>
+        <React.Fragment>
+            {loaded ?
+                <div className="col-lg-6">
+                    <div className={styles.Burger}>
+                        <Ingridients ingridient="topBun" />
+                        {withIngridients.length < 1 ? <h5>Add some ingridients</h5> : <Ingridient />}
+                        <Ingridients ingridient="lowerBun" />
+                    </div>
 
-            <div className="d-block mt-5">
-                <div className="my-5">
-                    <h5 className="text-center">Total: {cost.toFixed(2)}</h5>
+                    <div className="d-block mt-5">
+                        <div className="my-5">
+                            <h5 className="text-center">Total: {cost.toFixed(2)}</h5>
+                        </div>
+
+                        <Link to="/checkout">
+                            <button className="btn btn-warning w-100 py-3 text-light" disabled={withIngridients.length < 1}>Order</button>
+                        </Link>
+                    </div>
                 </div>
-
-                <Link to="/checkout">
-                    <button className="btn btn-warning w-100 py-3 text-light" disabled={withIngridients.length < 1}>Order</button>
-                </Link>
-            </div>
-        </div>
+                : null}
+        </React.Fragment>
     );
 }
 
-const mapState = ({ ingridients: { ingridients, cost } }) => {
+const mapState = ({ ingridients: { ingridients, cost, loaded } }) => {
     return {
-        ingridients: ingridients,
-        cost: cost
+        ingridients,
+        cost,
+        loaded
     }
 }
 

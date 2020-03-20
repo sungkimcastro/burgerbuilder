@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 
 const BurgerBuilder = (props) => {
@@ -17,44 +18,56 @@ const BurgerBuilder = (props) => {
     }
 
     return (
-        <div className="row mt-5">
-            {ingridients.map(ingridient => {
-                return (
-                    <div className="col-lg-6 my-2" key={ingridient.key} >
-                        <div className="card widget-flat">
-                            <div className="card-body">
-                                <div className="float-right">
-                                    <span className="badge badge-primary">
-                                        {props.ingridients[ingridient.key] !== 0 && props.ingridients[ingridient.key]}
-                                    </span>
+        <React.Fragment>
+            {props.loaded ?
+                <div className="row mt-5">
+                    {ingridients.map(ingridient => {
+                        return (
+                            <div className="col-lg-6 my-2" key={ingridient.key} >
+                                <div className="card widget-flat">
+                                    <div className="card-body">
+                                        <div className="float-right">
+                                            <span className="badge badge-primary">
+                                                {props.ingridients[ingridient.key] !== 0 && props.ingridients[ingridient.key]}
+                                            </span>
+                                        </div>
+                                        <h5 className="card-title">{ingridient.label}</h5>
+                                        <h6 className="card-subtitle text-muted">Cost: ${ingridient.cost}</h6>
+                                    </div>
+                                    <div className="card-body">
+                                        <button
+                                            className="btn btn-outline-success mr-3"
+                                            onClick={() => props.onAddIngridient(ingridient.key)}
+                                        >
+                                            Add
+                                         </button>
+                                        <button
+                                            className="btn btn-outline-danger"
+                                            disabled={!props.ingridients[ingridient.key]}
+                                            onClick={() => props.onRemoveIngridient(ingridient.key)}
+                                        >
+                                            Remove
+                                        </button>
+                                    </div>
                                 </div>
-                                <h5 className="card-title">{ingridient.label}</h5>
-                                <h6 className="card-subtitle text-muted">Cost: ${ingridient.cost}</h6>
                             </div>
-                            <div className="card-body">
-                                <button
-                                    className="btn btn-outline-success mr-3"
-                                    onClick={() => props.onAddIngridient(ingridient.key)}
-                                >
-                                    Add
-                                     </button>
-                                <button
-                                    className="btn btn-outline-danger"
-                                    disabled={!props.ingridients[ingridient.key]}
-                                    onClick={() => props.onRemoveIngridient(ingridient.key)}
-                                >
-                                    Remove
-                                    </button>
-                            </div>
-                        </div>
-                    </div>
-                )
-            })}
-
-
-        </div>
+                        )
+                    })}
+                </div>
+                : null}
+        </React.Fragment>
 
     );
 }
 
-export default BurgerBuilder;
+
+const mapState = ({ ingridients: { ingridients, cost, loaded } }) => {
+    return {
+        ingridients,
+        cost,
+        loaded
+    }
+}
+
+
+export default connect(mapState)(BurgerBuilder);

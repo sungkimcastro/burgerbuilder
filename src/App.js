@@ -1,7 +1,7 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import BurgerHandler from "./components/BurgerHandler";
-import Checkout from "./containers/Checkout";
+import Checkout from "./components/Checkout";
 
 function App() {
   return (

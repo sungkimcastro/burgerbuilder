@@ -1,10 +1,6 @@
 const defaultState = {
-  ingridients: {
-    meat: 0,
-    salad: 0,
-    bacon: 0,
-    cheese: 0
-  },
+  ingridients: null,
+  loaded: false,
   cost: 2
 };
 
@@ -17,6 +13,14 @@ const BURGER_PRICE = {
 
 export default (state = defaultState, action) => {
   switch (action.type) {
+    case "POPULATE_INGRIDIENTS":
+      return {
+        ...state,
+        ingridients: action.ingredients,
+        loaded: true,
+        cost: 2
+      };
+
     case "ADD_INGRIDIENT":
       return {
         ...state,

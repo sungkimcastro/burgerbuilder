@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { ADD_INGRIDIENT, REMOVE_INGRIDIENT } from './../store/action/ingridients';
+import { ADD_INGRIDIENT, REMOVE_INGRIDIENT, FETCH_INGRIDIENTS } from './../store/action/ingridients';
 import Burger from '../containers/Burger';
 import BurgerBuilder from './../containers/BurgerBuilder';
 
-
 const BurgerHandler = (props) => {
+    useEffect(() => {
+        props.fetchIngridients()
+    }, [])
+
     const onAddIngridient = (ingridient) => props.addIngrident(ingridient)
     const onRemoveIngridient = (ingridient) => props.removeIngridient(ingridient)
 
@@ -27,13 +30,14 @@ const BurgerHandler = (props) => {
 
 const mapState = ({ ingridients: { ingridients, cost } }) => {
     return {
-        ingridients: ingridients,
-        cost: cost
+        ingridients,
+        cost
     }
 }
 
 const mapDispatch = dispatch => {
     return {
+        fetchIngridients: () => dispatch(FETCH_INGRIDIENTS()),
         addIngrident: (ingridient) => dispatch(ADD_INGRIDIENT(ingridient)),
         removeIngridient: (ingridient) => dispatch(REMOVE_INGRIDIENT(ingridient)),
     }
