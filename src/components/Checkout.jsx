@@ -5,7 +5,7 @@ import Ingridients from "../containers/Ingridients";
 import Ingridient from '../selectors/ingridient';
 import styles from "../containers/assets/Burger.module.css"
 import OrderSummary from "../containers/OrderSummary";
-import Form from './Form';
+import CheckoutForm from './CheckoutForm';
 
 
 class Checkout extends Component {
@@ -15,35 +15,47 @@ class Checkout extends Component {
 
     render() {
 
-        const withIngridients = Object.values(this.props.ingridients).map(ingridient => ingridient > 0).filter(i => i !== false)
+        let withIngridients = null
+        const { ingridients, loaded } = this.props;
 
-        if (withIngridients.length < 1) {
+        if (loaded) {
+            withIngridients = Object.values(ingridients).map(ingridient => ingridient > 0).filter(i => i !== false)
+            if (withIngridients.length < 1) {
+                return <Redirect to="/" />
+            }
+        } else {
             return <Redirect to="/" />
         }
-
         return (
-            <div className="container">
-                <div className="row">
-                    <div className="col-lg-8">
-                        {
-                            this.state.checkout
-                                ?
-                                <div className="mt-5">
-                                    <Form />
+            <React.Fragment>
+                {
+                    loaded ?
+                        <div className="container">
+                            <div className="row">
+                                <div className="col-lg-8">
+                                    {
+                                        this.state.checkout
+                                            ?
+                                            <div className="mt-5">
+                                                <CheckoutForm />
+                                            </div>
+                                            :
+                                            <div className={styles.Burger}>
+                                                <Ingridients ingridient="topBun" />
+                                                <Ingridient />
+                                                <Ingridients ingridient="lowerBun" />
+                                            </div>
+                                    }
                                 </div>
-                                :
-                                <div className={styles.Burger}>
-                                    <Ingridients ingridient="topBun" />
-                                    <Ingridient />
-                                    <Ingridients ingridient="lowerBun" />
+                                <div className="col-lg-4 mt-5">
+                                    <OrderSummary setCheckout={() => this.setState({ checkout: true })} />
                                 </div>
-                        }
-                    </div>
-                    <div className="col-lg-4 mt-5">
-                        <OrderSummary setCheckout={() => this.setState({ checkout: true })} />
-                    </div>
-                </div>
-            </div>
+                            </div>
+                        </div>
+                        : null
+                }
+            </React.Fragment>
+
         );
     }
 }
@@ -52,10 +64,11 @@ class Checkout extends Component {
 
 
 
-const mapState = ({ ingridients: { ingridients, cost } }) => {
+const mapState = ({ ingridients: { ingridients, cost, loaded } }) => {
     return {
         ingridients,
-        cost
+        cost,
+        loaded
     }
 }
 

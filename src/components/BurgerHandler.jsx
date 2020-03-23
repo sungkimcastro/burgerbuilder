@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { ADD_INGRIDIENT, REMOVE_INGRIDIENT, FETCH_INGRIDIENTS } from './../store/action/ingridients';
 import Burger from '../containers/Burger';
