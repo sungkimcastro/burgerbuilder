@@ -7,7 +7,7 @@ import styles from "./assets/Burger.module.css"
 
 
 
-const Burger = ({ ingridients, cost, loaded }) => {
+const Burger = ({ ingridients, cost, loaded, }) => {
     let withIngridients = null
 
     if (loaded) {
@@ -39,11 +39,12 @@ const Burger = ({ ingridients, cost, loaded }) => {
     );
 }
 
-const mapState = ({ ingridients: { ingridients, cost, loaded } }) => {
+const mapState = ({ ingridients: { ingridients, cost, loaded }, auth: { email } }) => {
     return {
         ingridients,
         cost,
-        loaded
+        loaded,
+        email
     }
 }
 
