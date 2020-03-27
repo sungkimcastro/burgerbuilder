@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { Switch, Redirect } from "react-router-dom";
+import { Switch, Redirect, Route } from "react-router-dom";
 import { AUTH_STATE_CHECK } from "./store/action/auth";
-import PublicRoute from "./routes/Public";
-import PrivateRoute from "./routes/Private";
 import BurgerHandler from "./components/BurgerHandler";
 import Checkout from "./components/Checkout";
 import Auth from "./components/Auth";
+import Orders from "./components/Orders";
 import NavBar from "./components/NavBar";
 
 function App(props) {
@@ -14,15 +13,29 @@ function App(props) {
     props.autoSign();
   });
 
+  let routes = (
+    <Switch>
+      <Route path="/auth" component={Auth} />
+      <Route path="/" exact component={BurgerHandler} />
+    </Switch>
+  );
+
+  if (props.token) {
+    routes = (
+      <Switch>
+        <Route path="/checkout" component={Checkout} />
+        <Route path="/orders" component={Orders} />
+        <Route path="/auth" component={Auth} />
+        <Route path="/" exact component={BurgerHandler} />
+        <Redirect to="/" />
+      </Switch>
+    );
+  }
+
   return (
     <React.Fragment>
       <NavBar />
-      <Switch>
-        <PublicRoute path="/" component={BurgerHandler} exact />
-        <PublicRoute path="/auth" component={Auth} />
-        <PrivateRoute path="/checkout" component={Checkout} />
-        <Redirect to="/" exact />
-      </Switch>
+      {routes}
     </React.Fragment>
   );
 }

@@ -1,6 +1,7 @@
 const initialState = {
   token: null,
   userId: null,
+  email: null,
   error: null
 };
 
@@ -11,15 +12,16 @@ const authReducer = (state = initialState, action) => {
         ...state,
         token: action.token,
         userId: action.userId,
+        email: action.email,
         error: null
       };
 
     case "ERROR":
       return {
         ...state,
-        email: null,
         token: null,
         userId: null,
+        email: null,
         error: action.error
       };
 
@@ -27,7 +29,8 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         token: null,
-        userId: null
+        userId: null,
+        email: null
       };
 
     default:

@@ -7,7 +7,7 @@ import styles from "./assets/Burger.module.css"
 
 
 
-const Burger = ({ ingridients, cost, loaded, }) => {
+const Burger = ({ ingridients, cost, loaded, token }) => {
     let withIngridients = null
 
     if (loaded) {
@@ -30,7 +30,11 @@ const Burger = ({ ingridients, cost, loaded, }) => {
                         </div>
 
                         <Link to="/checkout">
-                            <button className="btn btn-warning w-100 py-3 text-light" disabled={withIngridients.length < 1}>Order</button>
+                            <button
+                                className="btn btn-warning w-100 py-3 text-light"
+                                disabled={!token || withIngridients.length < 1}>
+                                {token ? 'Order' : "You need to login first"}
+                            </button>
                         </Link>
                     </div>
                 </div>
@@ -39,12 +43,12 @@ const Burger = ({ ingridients, cost, loaded, }) => {
     );
 }
 
-const mapState = ({ ingridients: { ingridients, cost, loaded }, auth: { email } }) => {
+const mapState = ({ ingridients: { ingridients, cost, loaded }, auth: { token } }) => {
     return {
         ingridients,
         cost,
         loaded,
-        email
+        token
     }
 }
 

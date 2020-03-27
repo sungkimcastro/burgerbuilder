@@ -20,9 +20,6 @@ class Auth extends Component {
     };
 
     onRegister = () => this.setState({ isSignUp: true })
-    onLogin = () => this.setState({ isSignUp: false })
-
-
 
     render() {
 
@@ -31,7 +28,6 @@ class Auth extends Component {
         if (token && !error) {
             return <Redirect to="/" />
         }
-
 
         const form = (label, type, placeholder) => {
             return (
@@ -57,15 +53,17 @@ class Auth extends Component {
                                 <form onSubmit={this.onSubmit}>
                                     {form('Email address', 'email', 'Enter your email')}
                                     {form('Password', 'password', 'Enter your password')}
+
                                     <div className="text-center">
-                                        <button className="btn btn-primary w-100" onClick={this.onLogin}>Login</button>
+                                        <button className="btn btn-primary w-100">{this.state.isSignUp ? 'Register' : "Login"}</button>
                                     </div>
-                                    <div className="text-center mt-4">
-                                        <p className="text-muted">Don't have an account?
-                                        <button className="border-0 btn" onClick={this.onRegister}> Register </button>
-                                        </p>
-                                    </div>
+
                                 </form>
+                                <div className="text-center mt-4">
+                                    <p className="text-muted">Don't have an account?
+                                        <button className="border-0 btn" onClick={this.onRegister}> Register </button>
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>

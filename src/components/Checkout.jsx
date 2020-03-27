@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
 import Ingridients from "../containers/Ingridients";
 import Ingridient from '../selectors/ingridient';
 import styles from "../containers/assets/Burger.module.css"
@@ -15,17 +14,8 @@ class Checkout extends Component {
 
     render() {
 
-        let withIngridients = null
-        const { ingridients, loaded } = this.props;
+        const { loaded } = this.props;
 
-        if (loaded) {
-            withIngridients = Object.values(ingridients).map(ingridient => ingridient > 0).filter(i => i !== false)
-            if (withIngridients.length < 1) {
-                return <Redirect to="/" />
-            }
-        } else {
-            return <Redirect to="/" />
-        }
         return (
             <React.Fragment>
                 {

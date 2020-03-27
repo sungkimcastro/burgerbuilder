@@ -1,4 +1,8 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
+import { PURCHASE_BURGER } from "../store/action/order";
+import Button from "./utils/Button";
 
 class CheckoutForm extends Component {
   state = {
@@ -17,10 +21,24 @@ class CheckoutForm extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    console.log(this.state);
+
+    const data = {
+      ingredients: this.props.ingridients,
+      cost: this.props.cost,
+      email: this.props.email,
+      userData: this.state,
+      userId: this.props.userId
+    };
+
+    this.props.purchaseBurger(this.props.token, data);
   };
 
   render() {
+    const { purchased, error } = this.props;
+    const { name } = this.state;
+
+    if (purchased) return <Redirect to="/orders" />;
+
     const form = (label, placeholder, name, value) => {
       return (
         <div className="col-md-6">
@@ -42,7 +60,7 @@ class CheckoutForm extends Component {
 
     return (
       <form onSubmit={this.onSubmit}>
-        {this.state.error && <p>{this.state.error}</p>}
+        {error && <p>{error} </p>}
         <div className="row">
           {form("First Name", "Enter your first name", "name", this.state.name)}
           {form(
@@ -70,7 +88,6 @@ class CheckoutForm extends Component {
           <label>Order Notes:</label>
           <textarea
             className="form-control"
-            id="example-textarea"
             rows="3"
             placeholder="Write some note.."
             value={this.state.note}
@@ -78,16 +95,44 @@ class CheckoutForm extends Component {
             onChange={this.onChangeValue}
           ></textarea>
         </div>
-        {this.state.name.length <= 1 ? (
-          <button className="btn btn-outline-danger w-100" disabled>
-            First and last name are required
-          </button>
+        {name.length <= 1 ? (
+          <Button disabled={true}>First name is required</Button>
         ) : (
-          <button className="btn btn-outline-danger w-100">Order</button>
+          <Button disabled={false}>Order</Button>
         )}
       </form>
     );
   }
 }
 
-export default CheckoutForm;
+const mapState = state => {
+  const {
+    ingridients: { ingridients, cost }
+  } = state;
+
+  const {
+    auth: { token, userId, email }
+  } = state;
+
+  const {
+    order: { purchased, error }
+  } = state;
+
+  return {
+    ingridients,
+    cost,
+    token,
+    userId,
+    email,
+    purchased,
+    error
+  };
+};
+
+const mapDispatch = dispatch => {
+  return {
+    purchaseBurger: (data, token) => dispatch(PURCHASE_BURGER(data, token))
+  };
+};
+
+export default connect(mapState, mapDispatch)(CheckoutForm);
