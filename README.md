@@ -15,6 +15,7 @@ Build using:
 * Firebase - Realtime database and backend as a service.
 * Authentication - Allows an app to securely save user data.
 * ES6/ES7 - Javascript syntax.
+* Css modules - Component styling.
 * Firebase - Cloud Application Platform.
 
 And of course some React Libraries.
