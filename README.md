@@ -16,7 +16,7 @@ Build using:
 * Authentication - Allows an app to securely save user data.
 * ES6/ES7 - Javascript syntax.
 * Css modules - Component styling.
-* Firebase - Cloud Application Platform.
+* Hooks.
 
 And of course some React Libraries.
 
