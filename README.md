@@ -1,7 +1,5 @@
 # Burger builder app
 
-### Tech
-
 * React.
 * Redux.
 * React-Router.
